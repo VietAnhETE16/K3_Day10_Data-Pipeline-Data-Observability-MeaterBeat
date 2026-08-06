@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#081514" />
+    <title>RAG Data Observatory · MeaterBeat</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="RAG Data Observatory home">
+        <span class="brand-mark">R<span>//</span>O</span>
+        <span class="brand-copy">RAG DATA<br />OBSERVATORY</span>
+      </a>
+
+      <nav class="side-nav" aria-label="Dashboard sections">
+        <a class="nav-link active" href="#overview"><span>01</span> Overview</a>
+        <a class="nav-link" href="#pipeline"><span>02</span> Pipeline</a>
+        <a class="nav-link" href="#impact"><span>03</span> Impact Lab</a>
+        <a class="nav-link" href="#lineage"><span>04</span> Lineage</a>
+        <a class="nav-link" href="#artifacts"><span>05</span> Artifacts</a>
+      </nav>
+
+      <div class="side-footer">
+        <div class="live-dot"><i></i> Live artifacts</div>
+        <p id="generated-time">Đang tải dữ liệu…</p>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="micro-label">MEATERBEAT / DAY 10 LAB</p>
+          <p class="owner-line" id="owner-line">Lương Đăng Doanh · Role 1</p>
+        </div>
+        <div class="top-actions">
+          <button class="ghost-button" id="tour-button" type="button">
+            <span class="play-icon">▶</span> Demo tour
+          </button>
+          <div class="system-pill" id="system-pill"><i></i><span>Checking system</span></div>
+        </div>
+      </header>
+
+      <section class="hero section" id="overview">
+        <div class="hero-copy">
+          <p class="eyebrow">EVIDENCE, NOT ASSUMPTIONS</p>
+          <h1>Data you can trust.<br /><em>Answers you can defend.</em></h1>
+          <p class="hero-lead">
+            Một góc nhìn xuyên suốt từ Crossref raw metadata đến chất lượng câu trả lời RAG —
+            có lineage, quality gates và bằng chứng phục hồi sau corruption.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#pipeline">Khám phá pipeline <span>↘</span></a>
+            <button class="text-button" id="refresh-button" type="button">↻ Refresh artifacts</button>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Current pipeline pulse">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="core-ring">
+            <span class="core-kicker">BASELINE</span>
+            <strong id="hero-score">—</strong>
+            <span>retrieval hit rate</span>
+          </div>
+          <div class="float-chip chip-top"><i></i><span>Quality</span><b id="hero-quality">—</b></div>
+          <div class="float-chip chip-bottom"><i></i><span>Freshness</span><b id="hero-freshness">—</b></div>
+        </div>
+      </section>
+
+      <section class="stats-strip" aria-label="Pipeline overview statistics">
+        <article>
+          <span>RAW WORKS</span>
+          <strong id="stat-raw">—</strong>
+          <small>Crossref source records</small>
+        </article>
+        <article>
+          <span>CLEAN CORPUS</span>
+          <strong id="stat-clean">—</strong>
+          <small>retrieval-ready papers</small>
+        </article>
+        <article>
+          <span>FROZEN EVAL</span>
+          <strong id="stat-eval">—</strong>
+          <small>factual questions</small>
+        </article>
+        <article>
+          <span>QUALITY GATES</span>
+          <strong>03</strong>
+          <small>complete · unique · fresh</small>
+        </article>
+      </section>
+
+      <section class="section pipeline-section" id="pipeline">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE DATA JOURNEY</p>
+            <h2>One pipeline. Every transition visible.</h2>
+          </div>
+          <p>Chọn từng node để xem contract và bằng chứng tại mỗi bước.</p>
+        </div>
+
+        <div class="pipeline-shell">
+          <div class="pipeline-track" id="pipeline-track" aria-label="Interactive RAG pipeline"></div>
+          <aside class="pipeline-detail" id="pipeline-detail">
+            <p class="micro-label">SELECTED STAGE</p>
+            <span class="detail-index" id="detail-index">01</span>
+            <h3 id="detail-title">Crossref API</h3>
+            <p id="detail-copy">Đang tải pipeline contract…</p>
+            <div class="detail-value">
+              <strong id="detail-value">—</strong>
+              <span id="detail-unit">records</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section impact-section" id="impact">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CONTROLLED EXPERIMENT</p>
+            <h2>Watch bad data change the answer.</h2>
+          </div>
+          <div class="state-switch" role="tablist" aria-label="Dataset state">
+            <button class="state-button active" data-state="baseline" role="tab">Baseline</button>
+            <button class="state-button" data-state="corrupted" role="tab">Corrupted</button>
+            <button class="state-button" data-state="repaired" role="tab">Repaired</button>
+          </div>
+        </div>
+
+        <div class="impact-grid">
+          <div class="metrics-panel panel">
+            <div class="panel-title">
+              <div>
+                <p class="micro-label">RAG PERFORMANCE</p>
+                <h3 id="state-title">Baseline state</h3>
+              </div>
+              <span class="state-badge healthy" id="state-badge">HEALTHY</span>
+            </div>
+            <div class="metric-list" id="metric-list"></div>
+          </div>
+
+          <div class="quality-panel panel">
+            <div class="panel-title">
+              <div>
+                <p class="micro-label">DATA CONTRACT</p>
+                <h3>Quality gates</h3>
+              </div>
+              <strong class="quality-score" id="quality-score">—</strong>
+            </div>
+            <div class="quality-list" id="quality-list"></div>
+            <div class="freshness-card">
+              <div>
+                <span>Freshness window</span>
+                <strong id="freshness-window">—</strong>
+              </div>
+              <div class="freshness-meta">
+                <span id="freshness-oldest">Oldest —</span>
+                <span id="freshness-stale">— stale</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="comparison-panel panel">
+            <div class="panel-title">
+              <div>
+                <p class="micro-label">BEFORE / BREAK / RECOVER</p>
+                <h3>Impact comparison</h3>
+              </div>
+            </div>
+            <div class="comparison-chart" id="comparison-chart"></div>
+          </div>
+
+          <div class="incident-panel panel">
+            <div class="panel-title">
+              <div>
+                <p class="micro-label">INJECTED INCIDENTS</p>
+                <h3>What we broke on purpose</h3>
+              </div>
+              <span class="event-count" id="event-count">— events</span>
+            </div>
+            <div class="incident-list" id="incident-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section lineage-section" id="lineage">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">AUDITABLE BY DESIGN</p>
+            <h2>Trace one answer back to source.</h2>
+          </div>
+          <code class="doi-chip" id="lineage-doi">DOI —</code>
+        </div>
+
+        <div class="lineage-flow" id="lineage-flow"></div>
+
+        <div class="explorer-grid">
+          <article class="question-card panel">
+            <div class="panel-title">
+              <div>
+                <p class="micro-label">FROZEN EVALUATION SET</p>
+                <h3>Question explorer</h3>
+              </div>
+              <select id="question-select" aria-label="Choose evaluation question"></select>
+            </div>
+            <p class="selected-question" id="selected-question">Đang tải câu hỏi…</p>
+            <button class="reveal-button" id="reveal-answer" type="button">Reveal ground truth</button>
+            <div class="ground-truth" id="ground-truth" hidden>
+              <span>GROUND TRUTH</span>
+              <p id="ground-truth-copy"></p>
+              <code id="ground-truth-id"></code>
+            </div>
+          </article>
+
+          <article class="paper-card panel">
+            <p class="micro-label">CLEAN CORPUS SAMPLE</p>
+            <h3 id="paper-title">Đang tải paper…</h3>
+            <p class="paper-summary" id="paper-summary"></p>
+            <div class="paper-meta">
+              <span id="paper-authors"></span>
+              <span id="paper-date"></span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section artifacts-section" id="artifacts">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PROOF ON DISK</p>
+            <h2>Artifacts, not screenshots.</h2>
+          </div>
+          <p>Mỗi dòng được đọc trực tiếp từ workspace khi dashboard tải.</p>
+        </div>
+        <div class="artifact-table-wrap panel">
+          <table class="artifact-table">
+            <thead>
+              <tr>
+                <th>Artifact</th>
+                <th>Stage</th>
+                <th>Path</th>
+                <th>Size</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="artifact-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer>
+        <span>MEATERBEAT · RAG DATA OBSERVATORY</span>
+        <span>Built from reproducible artifacts · 2026</span>
+      </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
