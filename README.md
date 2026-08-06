@@ -1,5 +1,9 @@
 # Day 10 - Data Pipeline & Data Observability
-
+| Họ và Tên | MSSV | Vai Trò (Role) |
+| :--- | :--- | :--- |
+| **Lương Đăng Doanh** | 2A202601209 | **Role 1 (Ingestion & Cleaning Owner)** |
+| **Mai Việt Anh** | 2A202601083 | **Role 2 (Team Leader,   Evaluation & Observability Owner)** |
+| **Trần Tuấn Trung** | 2A202601769 | **Role 3 (Corruption & Integration Owner)** |
 ## Mục tiêu bài lab
 
 Bài lab mô phỏng quy trình xây dựng và vận hành data pipeline cho một hệ thống RAG sử dụng dữ liệu bài báo học thuật từ Crossref.
