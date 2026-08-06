@@ -286,7 +286,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer matches the reference answer exactly, providing the correct authors of the paper."
+      "reasoning": "The model answer matches the reference answer exactly, providing all the authors' names correctly."
     }
   },
   {
@@ -373,7 +373,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer matches the reference answer exactly, providing all the authors' names correctly."
+      "reasoning": "The model answer matches the reference answer exactly, listing all authors correctly."
     }
   },
   {
@@ -402,7 +402,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer is identical to the reference answer, accurately capturing the key points about the focus of the paper on high inference latency and expensive computation cost in Retrieval-Augmented Generation."
+      "reasoning": "The model answer is identical to the reference answer, accurately capturing the main focus of the paper on the bottlenecks in Retrieval-Augmented Generation."
     }
   },
   {
@@ -431,7 +431,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer matches the reference answer exactly, indicating that it is materially correct."
+      "reasoning": "The model answer matches the reference answer exactly, providing the correct publication date."
     }
   },
   {

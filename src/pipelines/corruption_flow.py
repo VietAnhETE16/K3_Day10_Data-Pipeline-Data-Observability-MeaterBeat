@@ -97,5 +97,30 @@ def main() -> None:
     run_data_quality_checks(repaired_df, settings, "repaired_quality")
     build_freshness_report(repaired_df, settings, settings.paths.quality_dir / "repaired_freshness_report.json")
 
+    # 10. Generate comparison report
+    print("Generating corruption comparison report...")
+    from core.utils import read_json
+    from observability.reporting import generate_corruption_report
+
+    baseline_metrics = read_json(settings.paths.baseline_metrics)
+    corrupted_metrics = read_json(settings.paths.corrupted_metrics)
+    repaired_metrics = read_json(settings.paths.repaired_metrics)
+
+    corrupted_quality = read_json(settings.paths.quality_dir / "corrupted_quality.json")
+    repaired_quality = read_json(settings.paths.quality_dir / "repaired_quality.json")
+
+    corrupted_freshness = read_json(settings.paths.quality_dir / "corrupted_freshness_report.json")
+    repaired_freshness = read_json(settings.paths.quality_dir / "repaired_freshness_report.json")
+
+    generate_corruption_report(
+        settings.paths.comparison_report,
+        baseline_metrics,
+        corrupted_metrics,
+        repaired_metrics,
+        corrupted_quality,
+        repaired_quality,
+        corrupted_freshness,
+        repaired_freshness
+    )
+
     print("Pipeline completed!")
-    print("NOTE: Report generation has been skipped as requested by the user.")
