@@ -373,7 +373,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer matches the reference answer exactly, providing all the authors' names correctly."
+      "reasoning": "The model answer matches the reference answer exactly, listing all authors correctly."
     }
   },
   {
