@@ -54,7 +54,7 @@
     "judge": {
       "score": 3,
       "correct": false,
-      "reasoning": "The model answer does not provide a complete or accurate description of the paper's content. It lacks specific details about the framework and its purpose, focusing only on the challenges in diagnosing jawbone lesions without mentioning the multimodal aspect or the retrieval-augmented generation features."
+      "reasoning": "The model answer does not provide a complete description of the paper's focus on diagnosing jawbone lesions and lacks specific details about the challenges mentioned in the reference answer."
     }
   },
   {
@@ -255,7 +255,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer matches the reference answer exactly, providing the correct publication date."
+      "reasoning": "The model answer matches the reference answer exactly, indicating it is materially correct."
     }
   },
   {
@@ -313,7 +313,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer is identical to the reference answer, accurately capturing the essence of what is described in the paper regarding the capabilities of large language models."
+      "reasoning": "The model answer is identical to the reference answer, accurately capturing the key point about the generative capabilities of large language models."
     }
   },
   {
@@ -371,7 +371,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer matches the reference answer exactly, providing all the authors' names correctly."
+      "reasoning": "The model answer matches the reference answer exactly, listing all authors correctly."
     }
   },
   {
