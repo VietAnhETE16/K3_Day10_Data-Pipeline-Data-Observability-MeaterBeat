@@ -1,24 +1,24 @@
 from __future__ import annotations
 
-from functools import lru_cache
-
+import os
+from dotenv import load_dotenv
 from langchain_core.embeddings import Embeddings
-from sentence_transformers import SentenceTransformer
+from langchain_openai import OpenAIEmbeddings
 
-
-@lru_cache(maxsize=4)
-def _load_model(model_name: str) -> SentenceTransformer:
-    return SentenceTransformer(model_name)
+load_dotenv()
 
 
 class MiniLMEmbeddings(Embeddings):
     def __init__(self, model_name: str):
-        self.model = _load_model(model_name)
+        # We use text-embedding-3-small as the default OpenAI embedding model
+        # to avoid dependencies on local sentence-transformers models.
+        self.model = OpenAIEmbeddings(
+            model="text-embedding-3-small",
+            openai_api_key=os.getenv("OPENAI_API_KEY"),
+        )
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
-        embeddings = self.model.encode(texts, normalize_embeddings=True)
-        return embeddings.tolist()
+        return self.model.embed_documents(texts)
 
     def embed_query(self, text: str) -> list[float]:
-        embedding = self.model.encode([text], normalize_embeddings=True)
-        return embedding[0].tolist()
+        return self.model.embed_query(text)

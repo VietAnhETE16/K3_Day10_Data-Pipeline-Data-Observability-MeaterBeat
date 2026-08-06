@@ -8,7 +8,7 @@ import pandas as pd
 from core.utils import first_sentence, write_json
 
 
-TEST_SET_SIZE = 8
+TEST_SET_SIZE = 20
 
 
 def _representative_indices(row_count: int, sample_count: int) -> list[int]:
@@ -48,16 +48,9 @@ def build_test_set(df: pd.DataFrame, output_path: Path) -> list[dict[str, Any]]:
 
     sample_count = min(TEST_SET_SIZE, len(eligible))
     selected = eligible.iloc[_representative_indices(len(eligible), sample_count)]
-    question_kinds = (
-        "authors",
-        "summary",
-        "date",
-        "authors",
-        "summary",
-        "date",
-        "authors",
-        "summary",
-    )
+    
+    kinds = ["authors", "summary", "date"]
+    question_kinds = [kinds[i % len(kinds)] for i in range(sample_count)]
 
     test_set: list[dict[str, Any]] = []
     for number, (kind, (_, row)) in enumerate(
@@ -87,3 +80,11 @@ def build_test_set(df: pd.DataFrame, output_path: Path) -> list[dict[str, Any]]:
 
     write_json(output_path, test_set)
     return test_set
+
+
+if __name__ == "__main__":
+    from core.config import load_settings
+    settings = load_settings()
+    df = pd.read_csv(settings.paths.clean_csv)
+    build_test_set(df, settings.paths.eval_testset)
+    print(f"Generated test set with {TEST_SET_SIZE} questions at {settings.paths.eval_testset}")
