@@ -1,0 +1,42 @@
+{
+  "report_name": "corrupted_quality",
+  "status": "FAIL",
+  "passed": false,
+  "total_rows": 25,
+  "checks": [
+    {
+      "name": "completeness",
+      "status": "FAIL",
+      "passed": false,
+      "observed": {
+        "total_rows": 25,
+        "missing_by_column": {
+          "paper_id": 0,
+          "title": 0,
+          "summary": 1
+        },
+        "summary_under_100_rows": 1
+      }
+    },
+    {
+      "name": "uniqueness",
+      "status": "FAIL",
+      "passed": false,
+      "observed": {
+        "total_rows": 25,
+        "duplicate_paper_id_rows": 2
+      }
+    },
+    {
+      "name": "freshness",
+      "status": "FAIL",
+      "passed": false,
+      "observed": {
+        "threshold_days": 180,
+        "missing_age_rows": 0,
+        "future_dated_rows": 0,
+        "stale_rows": 1
+      }
+    }
+  ]
+}
