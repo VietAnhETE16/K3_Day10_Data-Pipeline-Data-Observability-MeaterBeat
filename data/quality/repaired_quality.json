@@ -1,0 +1,42 @@
+{
+  "report_name": "repaired_quality",
+  "status": "PASS",
+  "passed": true,
+  "total_rows": 24,
+  "checks": [
+    {
+      "name": "completeness",
+      "status": "PASS",
+      "passed": true,
+      "observed": {
+        "total_rows": 24,
+        "missing_by_column": {
+          "paper_id": 0,
+          "title": 0,
+          "summary": 0
+        },
+        "summary_under_100_rows": 0
+      }
+    },
+    {
+      "name": "uniqueness",
+      "status": "PASS",
+      "passed": true,
+      "observed": {
+        "total_rows": 24,
+        "duplicate_paper_id_rows": 0
+      }
+    },
+    {
+      "name": "freshness",
+      "status": "PASS",
+      "passed": true,
+      "observed": {
+        "threshold_days": 180,
+        "missing_age_rows": 0,
+        "future_dated_rows": 0,
+        "stale_rows": 0
+      }
+    }
+  ]
+}
