@@ -402,7 +402,7 @@
     "judge": {
       "score": 5,
       "correct": true,
-      "reasoning": "The model answer is identical to the reference answer, accurately capturing the main focus of the paper on the bottlenecks in Retrieval-Augmented Generation."
+      "reasoning": "The model answer is identical to the reference answer, accurately capturing the main focus of the paper."
     }
   },
   {
