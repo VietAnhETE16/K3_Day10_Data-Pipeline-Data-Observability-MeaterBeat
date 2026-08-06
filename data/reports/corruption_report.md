@@ -1,35 +1,42 @@
-# Corruption Impact Report
+# Data Corruption and Repair Comparison Report
 
-## Summary
+This report compares the performance and observability signals of the RAG system across three states: Baseline (clean data), Corrupted (with controlled data errors), and Repaired (fully recovered).
 
-This report compares the baseline, corrupted, and repaired states using metrics and data-quality signals generated from the same evaluation set.
+## Overall Summary Table
 
-## Metric changes
+| Metric / Signal | Baseline | Corrupted | Repaired |
+| :--- | :---: | :---: | :---: |
+| **Data Quality Status** | **PASS** | **FAIL** | **PASS** |
+| **Data Freshness Status** | **PASS** | **FAIL** | **PASS** |
+| **Total Rows** | 20 | 25 | 24 |
+| **RAG Samples** | 20 | 20 | 20 |
+| **Retrieval Hit Rate** | 1.0000 | 1.0000 | 1.0000 |
+| **Mean Token F1** | 1.0000 | 0.9000 | 1.0000 |
+| **LLM Judge Accuracy** | 1.0000 | 0.9000 | 1.0000 |
+| **Mean LLM Judge Score** | 5 | 4.7000 | 5 |
 
-| Metric | Baseline | Corrupted | Repaired | Change | Evidence |
-|---|---:|---:|---:|---:|---|
-| retrieval_hit_rate | 1.0000 | 0.9000 | 1.0000 | -0.1000 | drop=-0.1000; recovery=0.1000 |
-| mean_token_f1 | 1.0000 | 0.9114 | 1.0000 | -0.0886 | drop=-0.0886; recovery=0.0886 |
-| judge_accuracy | 1.0000 | 0.9000 | 1.0000 | -0.1000 | drop=-0.1000; recovery=0.1000 |
-| mean_judge_score | 5 | 4.6000 | 5 | -0.4000 | drop=-0.4000; recovery=0.4000 |
+## Data Quality Details
 
-## Quality and freshness signals
+### Corrupted State Quality Checks
+- Status: **FAIL**
+- Checks details:
+*   **completeness**: **FAIL** (total_rows=25, missing_by_column={'paper_id': 0, 'title': 0, 'summary': 1}, summary_under_100_rows=1)
+*   **uniqueness**: **FAIL** (total_rows=25, duplicate_paper_id_rows=2)
+*   **freshness**: **FAIL** (threshold_days=180, missing_age_rows=0, future_dated_rows=0, stale_rows=1)
 
-| Signal | Baseline | Corrupted | Repaired | Interpretation |
-|---|---|---|---|---|
-| quality_status | PASS | FAIL | PASS | Quality gate status |
-| freshness_status | PASS | FAIL | PASS | Freshness gate status |
-| stale_rows | 0 | 1 | 0 | Rows older than the freshness threshold |
+### Repaired State Quality Checks
+- Status: **PASS**
+- Checks details:
+*   **completeness**: **PASS** (total_rows=24, missing_by_column={'paper_id': 0, 'title': 0, 'summary': 0}, summary_under_100_rows=0)
+*   **uniqueness**: **PASS** (total_rows=24, duplicate_paper_id_rows=0)
+*   **freshness**: **PASS** (threshold_days=180, missing_age_rows=0, future_dated_rows=0, stale_rows=0)
 
-## Corruption evidence
+## Data Freshness Details
 
-- Applied actions: 7
-- Blank summaries: 1
-- Duplicate rows: 1
-- Stale publication rows: 1
+### Corrupted State Freshness
+- Stale Rows: **1**
+- Is Fresh: **False**
 
-## Signals that stayed unchanged
-
-The following signals are explicitly recorded as unchanged so the report does not overstate the impact of corruption:
-
-- Evaluation sample count stayed the same across baseline, corrupted, and repaired runs.
+### Repaired State Freshness
+- Stale Rows: **0**
+- Is Fresh: **True**
