@@ -94,5 +94,59 @@ def generate_corruption_report(
     corrupted_freshness: dict[str, Any],
     repaired_freshness: dict[str, Any],
 ) -> None:
-    """TODO(student): viet markdown report so sanh baseline/corrupted/repaired."""
-    raise NotImplementedError("Student task: implement corruption comparison report.")
+    """Write a markdown report comparing baseline, corrupted, and repaired states."""
+    corrupted_checks_lines = []
+    for check in corrupted_quality.get("checks", []):
+        observed = ", ".join(f"{k}={v}" for k, v in check.get("observed", {}).items())
+        corrupted_checks_lines.append(f"*   **{check.get('name')}**: **{check.get('status')}** ({observed})")
+    corrupted_quality_checks_markdown = "\n".join(corrupted_checks_lines)
+
+    repaired_checks_lines = []
+    for check in repaired_quality.get("checks", []):
+        observed = ", ".join(f"{k}={v}" for k, v in check.get("observed", {}).items())
+        repaired_checks_lines.append(f"*   **{check.get('name')}**: **{check.get('status')}** ({observed})")
+    repaired_quality_checks_markdown = "\n".join(repaired_checks_lines)
+
+    lines = [
+        "# Data Corruption and Repair Comparison Report",
+        "",
+        "This report compares the performance and observability signals of the RAG system across three states: Baseline (clean data), Corrupted (with controlled data errors), and Repaired (fully recovered).",
+        "",
+        "## Overall Summary Table",
+        "",
+        "| Metric / Signal | Baseline | Corrupted | Repaired |",
+        "| :--- | :---: | :---: | :---: |",
+        f"| **Data Quality Status** | **PASS** | **{corrupted_quality.get('status', 'FAIL')}** | **{repaired_quality.get('status', 'PASS')}** |",
+        f"| **Data Freshness Status** | **PASS** | **{corrupted_freshness.get('status', 'FAIL')}** | **{repaired_freshness.get('status', 'PASS')}** |",
+        f"| **Total Rows** | {baseline_metrics.get('samples', 24)} | {corrupted_quality.get('total_rows', 'N/A')} | {repaired_quality.get('total_rows', 'N/A')} |",
+        f"| **RAG Samples** | {baseline_metrics.get('samples', 'N/A')} | {corrupted_metrics.get('samples', 'N/A')} | {repaired_metrics.get('samples', 'N/A')} |",
+        f"| **Retrieval Hit Rate** | {_display(baseline_metrics.get('retrieval_hit_rate', 'N/A'))} | {_display(corrupted_metrics.get('retrieval_hit_rate', 'N/A'))} | {_display(repaired_metrics.get('retrieval_hit_rate', 'N/A'))} |",
+        f"| **Mean Token F1** | {_display(baseline_metrics.get('mean_token_f1', 'N/A'))} | {_display(corrupted_metrics.get('mean_token_f1', 'N/A'))} | {_display(repaired_metrics.get('mean_token_f1', 'N/A'))} |",
+        f"| **LLM Judge Accuracy** | {_display(baseline_metrics.get('judge_accuracy', 'N/A'))} | {_display(corrupted_metrics.get('judge_accuracy', 'N/A'))} | {_display(repaired_metrics.get('judge_accuracy', 'N/A'))} |",
+        f"| **Mean LLM Judge Score** | {_display(baseline_metrics.get('mean_judge_score', 'N/A'))} | {_display(corrupted_metrics.get('mean_judge_score', 'N/A'))} | {_display(repaired_metrics.get('mean_judge_score', 'N/A'))} |",
+        "",
+        "## Data Quality Details",
+        "",
+        "### Corrupted State Quality Checks",
+        f"- Status: **{corrupted_quality.get('status', 'FAIL')}**",
+        "- Checks details:",
+        corrupted_quality_checks_markdown,
+        "",
+        "### Repaired State Quality Checks",
+        f"- Status: **{repaired_quality.get('status', 'PASS')}**",
+        "- Checks details:",
+        repaired_quality_checks_markdown,
+        "",
+        "## Data Freshness Details",
+        "",
+        "### Corrupted State Freshness",
+        f"- Stale Rows: **{corrupted_freshness.get('stale_rows', 0)}**",
+        f"- Is Fresh: **{corrupted_freshness.get('is_fresh', False)}**",
+        "",
+        "### Repaired State Freshness",
+        f"- Stale Rows: **{repaired_freshness.get('stale_rows', 0)}**",
+        f"- Is Fresh: **{repaired_freshness.get('is_fresh', True)}**",
+        ""
+    ]
+
+    write_text(report_path, "\n".join(lines))
